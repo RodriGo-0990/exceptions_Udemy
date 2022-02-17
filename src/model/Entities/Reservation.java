@@ -3,6 +3,7 @@ package model.Entities;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import model.Exeptions.ReservationExceptions;
 
 
 
@@ -45,12 +46,12 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public void updateDates(Date checkIn, Date checkOut) {
+	public void updateDates(Date checkIn, Date checkOut)throws ReservationExceptions {
 		Date now = new Date();
 		if(!checkout.after(checkin)) {
-			throw new IllegalArgumentException("Datas inválidas");
+			throw new ReservationExceptions("Datas inválidas: a data de Check-In deve vir antes do Check-Out.");
 		}if(checkin.before(now) || checkOut.before(now)) {
-			throw new IllegalArgumentException("Datas inválidas");
+			throw new ReservationExceptions("Datas inválidas: datas devem ser futuras.");
 		}
 	}
 

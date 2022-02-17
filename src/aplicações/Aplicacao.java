@@ -3,8 +3,10 @@ package aplicações;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import model.Entities.Reservation;
+import model.Exeptions.ReservationExceptions;
 
 public class Aplicacao {
 
@@ -30,11 +32,13 @@ public class Aplicacao {
 			System.out.print("Check-out date (dd/MM/yyyy) : ");
 			checkout = sdf.parse(sc.next());		
 			reservation.updateDates(checkin, checkout);
-			System.out.println("\n" + reservation + "---------FIM----------");
+			System.out.println("\n" + reservation + "-------------");
 		}catch (ParseException e) {
 			System.out.println("[ERRO] Formato inválido");
-		}catch (IllegalArgumentException e) {
+		}catch (ReservationExceptions e) {
 			System.out.println("[ERRO]" + e.getMessage());
+		}catch (InputMismatchException e) {
+			System.out.println("[ERRO] Formato inválido");
 		}
 		
 		System.out.println("\n"+"---------FIM----------");
