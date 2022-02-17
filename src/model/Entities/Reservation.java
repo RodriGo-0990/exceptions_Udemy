@@ -4,12 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+
+
 public class Reservation {
 	
 	private int roomnumber;
 	private Date checkin;
 	private Date checkout;
-	private Date now = new Date();
+	
 
 	public Reservation(int roomnumber, Date checkin, Date checkout) {
 		this.roomnumber = roomnumber;
@@ -44,25 +46,13 @@ public class Reservation {
 	}
 	
 	public void updateDates(Date checkIn, Date checkOut) {
-		this.checkin = checkIn;
-		this.checkout = checkOut;	
-	}
-	
-	
-	public boolean validacaoDeDatas() {
+		Date now = new Date();
 		if(!checkout.after(checkin)) {
-			return false;
+			throw new IllegalArgumentException("Datas inválidas");
+		}if(checkin.before(now) || checkOut.before(now)) {
+			throw new IllegalArgumentException("Datas inválidas");
 		}
-		return true;
 	}
-	public boolean validacaoDeDataAtual() {
-		if(checkin.before(now)) {
-			return false;
-		}
-		
-		return true;
-	}
-
 
 	@Override
 	public String toString() {
